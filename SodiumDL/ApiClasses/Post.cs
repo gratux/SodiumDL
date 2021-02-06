@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using SodiumDL.JsonConverter;
@@ -22,6 +23,10 @@ namespace SodiumDL.ApiClasses
 		public Tag[] Tags { get; set; }
 
 		[JsonPropertyName("rating")] public Rating Rating { get; set; }
+
+		[JsonPropertyName("file")]
+		[JsonConverter(typeof(FileConverter))]
+		public Uri File { get; set; }
 
 		public override string ToString()
 		{
