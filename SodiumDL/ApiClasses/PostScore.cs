@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace SodiumDL.ApiClasses
 {
-	public struct Score
+	public struct PostScore
 	{
 		[JsonPropertyName("up")] public int Up { get; set; }
 		[JsonPropertyName("down")] public int Down { get; set; }

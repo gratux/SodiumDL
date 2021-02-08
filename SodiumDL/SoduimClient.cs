@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text.Json;
-using System.Threading.Tasks;
-using SodiumDL.ApiClasses;
-
-namespace SodiumDL
+﻿namespace SodiumDL
 {
 	public class SodiumClient
 	{
@@ -23,7 +16,7 @@ namespace SodiumDL
 			_httpClient = new LimitedHttpClient(1, userAgent);
 		}
 
-		public async Task<IEnumerable<Post>> GetPostsAsync(string tagQuery, int postLimit)
+		public async Task<IEnumerable<Post>> GetPostsAsync(string tagQuery, int postLimit, bool includeDeleted = false)
 		{
 			var posts = new List<Post>();
 			var retries = 5;
@@ -48,7 +41,7 @@ namespace SodiumDL
 					continue;
 				}
 
-				posts.AddRange(newPosts);
+				posts.AddRange(newPosts.Where(post => !post.Flags.Deleted || includeDeleted));
 				i += newPosts.Count;
 			}
 

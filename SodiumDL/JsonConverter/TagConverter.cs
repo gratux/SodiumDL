@@ -1,16 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using SodiumDL.ApiClasses;
-
 namespace SodiumDL.JsonConverter
 {
-	public class TagConverter : JsonConverter<Tag[]>
+	public class TagConverter : JsonConverter<PostTag[]>
 	{
-		public override Tag[] Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+		public override PostTag[] Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 		{
-			var allTags = new List<Tag>();
+			var allTags = new List<PostTag>();
 			var tagsDone = false;
 			var group = "general";
 			while (!tagsDone && reader.Read())
@@ -34,14 +28,14 @@ namespace SodiumDL.JsonConverter
 						break;
 					case JsonTokenType.String:
 						var tag = reader.GetString();
-						allTags.Add(new Tag {Value = tag, Group = ParseGroup(group)});
+						allTags.Add(new PostTag {Value = tag, Group = ParseGroup(group)});
 						break;
 				}
 
 			return allTags.ToArray();
 		}
 
-		public override void Write(Utf8JsonWriter writer, Tag[] value, JsonSerializerOptions options)
+		public override void Write(Utf8JsonWriter writer, PostTag[] value, JsonSerializerOptions options)
 		{
 			throw new NotImplementedException();
 		}
