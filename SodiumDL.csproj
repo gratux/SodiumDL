@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net5.0;netcoreapp3.1</TargetFrameworks>
+        <Company>gratux</Company>
+        <AssemblyVersion>0.5</AssemblyVersion>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageVersion>$(AssemblyVersion)</PackageVersion>
+        <Title>SodiumDL</Title>
+        <Authors>gratux</Authors>
+        <Description>A Simple e621.net Interface for .NET</Description>
+        <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+        <RepositoryUrl>https://github.com/gratux/SodiumDL</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="LICENSE.md">
+          <Pack>true</Pack>
+          <PackagePath />
+        </None>
+    </ItemGroup>
+
+</Project>

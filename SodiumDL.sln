@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SodiumDL", "SodiumDL\SodiumDL.csproj", "{E6E2F5DB-7226-4300-B095-A68B6DB2567A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SodiumDL", "SodiumDL.csproj", "{E6E2F5DB-7226-4300-B095-A68B6DB2567A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
