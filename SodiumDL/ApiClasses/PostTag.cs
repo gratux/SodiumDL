@@ -12,14 +12,11 @@ namespace SodiumDL.ApiClasses
 		Meta
 	}
 
-	public struct PostTag
+	public class PostTag
 	{
 		public TagGroup Group { get; set; }
 		public string Value { get; set; }
 
-		public override string ToString()
-		{
-			return $"({Group}) {Value}";
-		}
+		public override string ToString() => $"({Group}) {Value}";
 	}
 }

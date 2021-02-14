@@ -1,4 +1,12 @@
-﻿namespace SodiumDL
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Text.Json;
+using System.Threading.Tasks;
+using SodiumDL.ApiClasses;
+
+namespace SodiumDL
 {
 	public class SodiumClient
 	{
@@ -34,12 +42,16 @@
 				var responseDeserialized = JsonSerializer.Deserialize<ApiResponse>(response);
 				var newPosts = responseDeserialized?.Posts;
 
+				// no or invalid response
 				if (newPosts == null)
 				{
 					if (--retries == 0)
 						break;
 					continue;
 				}
+
+				// no more posts found
+				if (newPosts.Count == 0) break;
 
 				posts.AddRange(newPosts.Where(post => !post.Flags.Deleted || includeDeleted));
 				i += newPosts.Count;

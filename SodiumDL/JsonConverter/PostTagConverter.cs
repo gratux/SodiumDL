@@ -1,3 +1,9 @@
+using System;
+using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using SodiumDL.ApiClasses;
+
 namespace SodiumDL.JsonConverter
 {
 	public class TagConverter : JsonConverter<PostTag[]>
@@ -18,6 +24,7 @@ namespace SodiumDL.JsonConverter
 				//
 				// }
 
+				// ReSharper disable once SwitchStatementMissingSomeEnumCasesNoDefault
 				switch (reader.TokenType)
 				{
 					case JsonTokenType.EndObject:
@@ -40,9 +47,7 @@ namespace SodiumDL.JsonConverter
 			throw new NotImplementedException();
 		}
 
-		private static TagGroup ParseGroup(string groupName)
-		{
-			return (TagGroup) Enum.Parse(typeof(TagGroup), groupName, true);
-		}
+		private static TagGroup ParseGroup(string groupName) =>
+			(TagGroup) Enum.Parse(typeof(TagGroup), groupName, true);
 	}
 }

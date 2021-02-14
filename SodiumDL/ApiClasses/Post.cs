@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using SodiumDL.JsonConverter;
+
 namespace SodiumDL.ApiClasses
 {
 	[JsonConverter(typeof(PostRatingConverter))]
@@ -23,10 +27,7 @@ namespace SodiumDL.ApiClasses
 
 		[JsonPropertyName("flags")] public PostFlags Flags { get; set; }
 
-		public override string ToString()
-		{
-			return $"Post (Id: {Id}, Score: {Score})";
-		}
+		public override string ToString() => $"Post (Id: {Id}, Score: {Score})";
 	}
 
 	public class ApiResponse
