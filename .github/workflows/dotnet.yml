@@ -26,4 +26,4 @@ jobs:
       with:   
         PROJECT_FILE_PATH: SodiumDL/SodiumDL.csproj  
         NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-        VERSION_REGEX: ^\s*\<AssemblyVersion\>(.*)<\/AssemblyVersion\>\s*$
+        #VERSION_REGEX: ^\s*\<AssemblyVersion\>(.*)<\/AssemblyVersion\>\s*$
