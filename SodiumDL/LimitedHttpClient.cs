@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace SodiumDL
 {
-	public class LimitedHttpClient
+	internal class LimitedHttpClient
 	{
 		private readonly HttpClient _client;
 		private readonly TimeSpan _minimumRequestTime;
@@ -30,7 +30,9 @@ namespace SodiumDL
 			var timeout = _minimumRequestTime - (DateTime.UtcNow - _lastRequest);
 			if (timeout.TotalMilliseconds > 0)
 			{
+#if DEBUG
 				Console.WriteLine($"rate limit: waiting for {timeout}");
+#endif
 				Task.Delay(timeout).Wait();
 			}
 

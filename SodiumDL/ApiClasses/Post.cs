@@ -12,9 +12,13 @@ namespace SodiumDL.ApiClasses
 		Explicit
 	}
 
+	/// <summary>
+	///     represents a single e621-post
+	/// </summary>
 	public class Post
 	{
 		[JsonPropertyName("id")] public ulong Id { get; set; }
+
 		[JsonPropertyName("score")] public PostScore Score { get; set; }
 
 		[JsonPropertyName("tags")]

@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 
 namespace SodiumDL.ApiClasses
@@ -10,6 +11,6 @@ namespace SodiumDL.ApiClasses
 		[JsonPropertyName("ext")] public string Type { get; set; }
 		[JsonPropertyName("size")] public ulong Size { get; set; }
 		[JsonPropertyName("md5")] public string Md5 { get; set; }
-		[JsonPropertyName("url")] public Uri Url { get; set; }
+		[JsonPropertyName("url")] [MaybeNull] public Uri Url { get; set; }
 	}
 }

@@ -6,7 +6,7 @@ using SodiumDL.ApiClasses;
 
 namespace SodiumDL.JsonConverter
 {
-	public class TagConverter : JsonConverter<PostTag[]>
+	internal class TagConverter : JsonConverter<PostTag[]>
 	{
 		public override PostTag[] Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 		{

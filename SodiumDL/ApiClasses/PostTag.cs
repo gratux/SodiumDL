@@ -12,6 +12,10 @@ namespace SodiumDL.ApiClasses
 		Meta
 	}
 
+	/// <summary>
+	///     represents a single e621 tag
+	///     each tag has a category (eg. artist, species, general, ...) and the tag name itself
+	/// </summary>
 	public class PostTag
 	{
 		public TagGroup Group { get; set; }

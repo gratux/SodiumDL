@@ -5,7 +5,7 @@ using SodiumDL.ApiClasses;
 
 namespace SodiumDL.JsonConverter
 {
-	public class PostRatingConverter : JsonConverter<PostRating>
+	internal class PostRatingConverter : JsonConverter<PostRating>
 	{
 		public override PostRating Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 		{

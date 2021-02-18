@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text.Json;
-using System.Threading.Tasks;
 using SodiumDL.ApiClasses;
 
 namespace SodiumDL
@@ -16,6 +15,11 @@ namespace SodiumDL
 		private readonly LimitedHttpClient _httpClient;
 		private readonly bool _useSafeMode;
 
+		/// <summary>
+		///     create a new SodiumClient instance
+		/// </summary>
+		/// <param name="useSafeMode">true when using e926.net (SFW), false when using e621.net (NSFW)</param>
+		/// <param name="userAgent">a custom user agent to be used when making web requests</param>
 		public SodiumClient(bool useSafeMode = false, string userAgent = null)
 		{
 			_useSafeMode = useSafeMode;
@@ -24,19 +28,26 @@ namespace SodiumDL
 			_httpClient = new LimitedHttpClient(1, userAgent);
 		}
 
-		public async Task<IEnumerable<Post>> GetPostsAsync(string tagQuery, int postLimit, bool includeDeleted = false)
+		/// <summary>
+		///     gets a number of posts with the specified tags
+		/// </summary>
+		/// <param name="tagQuery">the space-separated tags</param>
+		/// <param name="postLimit">the maximum number of posts returned</param>
+		/// <param name="includeDeleted">true if deleted posts should be included</param>
+		/// <returns>the found posts</returns>
+		public async IAsyncEnumerable<Post> GetPostsAsync(string tagQuery, int postLimit, bool includeDeleted = false)
 		{
-			var posts = new List<Post>();
+			ulong lastPostId = 0;
 			var retries = 5;
 			for (var i = 0; i < postLimit;)
 			{
 				// get page
 				string response;
-				if (posts.Count == 0)
+				if (lastPostId == 0)
 					response = await _httpClient.LimitedGetString(BuildRequestUri(tagQuery, postLimit - i));
 				else
 					response = await _httpClient.LimitedGetString(
-						BuildRequestUri(tagQuery, postLimit - i, posts[^1].Id));
+						BuildRequestUri(tagQuery, postLimit - i, lastPostId));
 
 				// deserialize to post array
 				var responseDeserialized = JsonSerializer.Deserialize<ApiResponse>(response);
@@ -53,11 +64,15 @@ namespace SodiumDL
 				// no more posts found
 				if (newPosts.Count == 0) break;
 
-				posts.AddRange(newPosts.Where(post => !post.Flags.Deleted || includeDeleted));
-				i += newPosts.Count;
-			}
+				var validPosts = newPosts.Where(post => !post.Flags.Deleted || includeDeleted).ToList();
 
-			return posts;
+				//lazily return new posts
+				foreach (var post in validPosts)
+					yield return post;
+
+				lastPostId = newPosts.Last().Id;
+				i += validPosts.Count;
+			}
 		}
 
 		private Uri BuildRequestUri(string tagQuery = default, int postLimit = default,

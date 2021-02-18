@@ -8,10 +8,10 @@ namespace TestApp1
 	{
 		private static async Task Main()
 		{
-			Console.WriteLine("Hello World!");
 			var client = new SodiumClient();
-			var posts = await client.GetPostsAsync("cheese_grater", 150);
-			foreach (var post in posts) Console.WriteLine(post.File.Url?.AbsoluteUri);
+			var posts = client.GetPostsAsync("cheese_grater", 150);
+			await foreach (var post in posts)
+				Console.WriteLine(post.File.Url?.AbsoluteUri);
 		}
 	}
 }
