@@ -13,23 +13,27 @@ namespace SodiumDL
 		private const string E926BaseUri = "https://e926.net/posts.json";
 
 		private readonly LimitedHttpClient _httpClient;
-		private readonly bool _useSafeMode;
 
 		/// <summary>
-		///     create a new SodiumClient instance
+		/// create a new SodiumClient instance
 		/// </summary>
-		/// <param name="useSafeMode">true when using e926.net (SFW), false when using e621.net (NSFW)</param>
+		/// <param name="safeMode">true when using e926.net (SFW), false when using e621.net (NSFW)</param>
 		/// <param name="userAgent">a custom user agent to be used when making web requests</param>
-		public SodiumClient(bool useSafeMode = false, string userAgent = null)
+		public SodiumClient(bool safeMode = false, string userAgent = null)
 		{
-			_useSafeMode = useSafeMode;
-			userAgent ??= $"SodiumDL/{Assembly.GetExecutingAssembly().GetName().Version} (by d3r_5h06un)";
+			SafeMode = safeMode;
+			userAgent ??= $"{Assembly.GetExecutingAssembly().GetName().Name}/{Assembly.GetExecutingAssembly().GetName().Version} (by d3r_5h06un)";
 
 			_httpClient = new LimitedHttpClient(1, userAgent);
 		}
 
 		/// <summary>
-		///     gets a number of posts with the specified tags
+		/// true when using e926.net (SFW), false for e621.net (NSFW)
+		/// </summary>
+		public bool SafeMode { get; set; }
+
+		/// <summary>
+		/// gets a number of posts with the specified tags
 		/// </summary>
 		/// <param name="tagQuery">the space-separated tags</param>
 		/// <param name="postLimit">the maximum number of posts returned</param>
@@ -78,7 +82,7 @@ namespace SodiumDL
 		private Uri BuildRequestUri(string tagQuery = default, int postLimit = default,
 			ulong beforePost = default)
 		{
-			var uriBuilder = new UriBuilder(_useSafeMode ? E926BaseUri : E621BaseUri);
+			var uriBuilder = new UriBuilder(SafeMode ? E926BaseUri : E621BaseUri);
 
 			var query = string.Empty;
 			if (tagQuery != default)

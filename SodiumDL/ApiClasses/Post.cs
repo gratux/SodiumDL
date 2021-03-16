@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using SodiumDL.JsonConverter;
@@ -13,11 +14,15 @@ namespace SodiumDL.ApiClasses
 	}
 
 	/// <summary>
-	///     represents a single e621-post
+	/// represents a single e621-post
 	/// </summary>
 	public class Post
 	{
 		[JsonPropertyName("id")] public ulong Id { get; set; }
+
+		[JsonPropertyName("created_at")] public DateTime CreatedAt { get; set; }
+		
+		[JsonPropertyName("updated_at")] public DateTime UpdatedAt { get; set; }
 
 		[JsonPropertyName("score")] public PostScore Score { get; set; }
 

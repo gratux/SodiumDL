@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFrameworks>net5.0;netcoreapp3.1</TargetFrameworks>
         <Company>gratux</Company>
-        <AssemblyVersion>0.5.2</AssemblyVersion>
+        <AssemblyVersion>0.5.3</AssemblyVersion>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageVersion>$(AssemblyVersion)</PackageVersion>
         <Title>SodiumDL</Title>
